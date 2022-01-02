@@ -23,12 +23,9 @@ use Illuminate\Routing\RouteGroup;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// ROUTE UNTUK ADMIN CRUD AKUN ZOOM
+// ROUTE UNTUK ADMIN
 Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
+    //CRUD akun zoom
     Route::get('/akun-zoom', [AkunZoomController::class, 'index']);
     Route::get('akun-zoom/tambah', [AkunZoomController::class, 'create']);
     Route::post('akun-zoom', [AkunZoomController::class, 'store']);
@@ -36,30 +33,41 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     Route::patch('akun-zoom/{id_zoom}', [AkunZoomController::class, 'update']);
     Route::delete('/akun-zoom/{id_zoom}', [AkunZoomController::class, 'destroy']);
 
+    //update status request akun zoom yang dibuat oleh user
     Route::get('/request-pinjam/edit/{id_peminjaman}', [RequestPinjamController::class, 'edit']);
     Route::patch('/request-pinjam/{id_peminjaman}', [RequestPinjamController::class, 'update']);
 
+    //melihat history peminjaman dan restore data
     Route::get('/request-pinjam/history', [RequestPinjamController::class, 'history']);
     Route::get('/request-pinjam/history/{id_peminjaman?}', [RequestPinjamController::class, 'restore']);
 });
 
-// ROUTE UNTUK PEMINJAMAN MAHASISWA
+// ROUTE UNTUK MAHASISWA
 Route::group(['middleware'=> ['auth', 'ceklevel:User']], function (){
+    //Menambah request peminjaman akun zoom
     Route::get('/request-pinjam/tambah', [RequestPinjamController::class, 'create']);
     Route::post('/request-pinjam', [RequestPinjamController::class, 'store']);
-    
+
+    //mengembalikan akun zoom
+    Route::get('/pengembalian/edit/{id_peminjaman}', [RequestPinjamController::class, 'pengembalian']);
+    Route::patch('/pengembalian/{id_peminjaman}', [RequestPinjamController::class, 'pengembalian_update']);
     Route::delete('/request-pinjam/finish/{id_peminjaman}', [RequestPinjamController::class, 'soft_destroy']);
 });
 
 //ROUTE ADMIN DAN MAHASISWA
 Route::group(['middleware'=>['auth', 'ceklevel:Admin,User']], function (){
+    //melihat dashboard
     Route::get('/dashboard', [LevelController::class, 'dashboard']);
+
+    //melihat list request yang telah dibuat
     Route::get('/request-pinjam', [RequestPinjamController::class, 'index']);
+
+    //melihat jadwal request yang telah di approved
     Route::get('/jadwal', [JadwalController::class, 'index']);
     Route::get('/jadwal/detail/{id_peminjaman}', [JadwalController::class, 'edit']);
+
+    //menghapus request yang belum di approved
     Route::delete('/request-pinjam/{id_peminjaman}', [RequestPinjamController::class, 'destroy']);
-    Route::get('/pengembalian/edit/{id_peminjaman}', [RequestPinjamController::class, 'pengembalian']);
-    Route::patch('/pengembalian/{id_peminjaman}', [RequestPinjamController::class, 'pengembalian_update']);
 });
 
 //LOGIN

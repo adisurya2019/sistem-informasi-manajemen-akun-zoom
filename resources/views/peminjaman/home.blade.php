@@ -24,7 +24,7 @@
         @if (auth()->User()->level=="Admin")
         <div class="card-header">
             <div class="float-left">
-                <a href="{{url('request-pinjam/history')}}" class="btn btn-success btn-sm fa fa-check"> Akun yang telah dikembalikan</a>
+                <a href="{{url('request-pinjam/history')}}" class="btn btn-dark btn-sm fa fa-history"> HISTORY</a>
             </div>
         </div>
         @endif
@@ -44,10 +44,6 @@
                         <th class="text-center">No</th>
                         <th class="text-center">Nama Akun</th>
                         <th class="text-center">Nama Kegiatan</th>
-                        {{-- <th class="text-center">Deskripsi</th> --}}
-                        {{-- <th class="text-center">Tanggal</th>
-                        <th class="text-center">Jam</th>
-                        <th class="text-center">Durasi</th> --}}
                         <th class="text-center">Keterangan</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Action</th>
@@ -59,11 +55,6 @@
                             <td class="text-center">{{$loop->iteration}}</td>
                             <td class="text-center">{{$item->akunzoom->nama_akun}}</td>
                             <td class="text-center">{{$item->nama_kegiatan}}</td>
-                            {{-- <td class="text-center">{{$item->deskripsi}}</td> --}}
-                            {{-- <td class="text-center">{{$item->tanggal}}</td>
-                            <td class="text-center">{{$item->jam}}</td>
-                            <td class="text-center">{{$item->durasi}}</td> --}}
-                            
                             <td class=" text-center">
                                 <div class=" text-center 
                                     @if ($item->status_aksi == "1")
@@ -113,16 +104,6 @@
                                     <a href="{{url('request-pinjam/edit/'.$item->id_peminjaman)}}" class="btn btn-primary btn-sm">
                                         <i class="fa fa-pencil-alt "></i>
                                     </a>
-                                    <a href="{{url('pengembalian/edit/'.$item->id_peminjaman)}}" class="btn btn-success btn-sm">
-                                        <i class="fa fa-check-double "></i>
-                                    </a>
-                                    <form action="{{'request-pinjam/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Data akan dihapus, apakah anda yakin? ')">
-                                        @method('delete')
-                                        @csrf
-                                        <button href="" class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </button>
-                                    </form>
                                 @endif
                                     @if (auth()->User()->level=="User")
                                         @if ($item->status_aksi == "1")

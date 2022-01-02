@@ -18,6 +18,24 @@
     </div>
 @endif
 
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.full.min.js" integrity="sha512-hDFt+089A+EmzZS6n/urree+gmentY36d9flHQ5ChfiRjEJJKFSsl1HqyEOS5qz7jjbMZ0JU4u/x1qe211534g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.js" integrity="sha512-MehgAeNIQ/Hu+hLHn73kHKr7+V78kZoxwmCtLgyPRNrHXq8/VzuGUuvijhvQvHuU6cNAwcHKgZihe+/JUVlvYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.min.css" integrity="sha512-f0tzWhCwVFS3WeYaofoLWkTP62ObhewQ1EZn65oSYDZUg1+CyywGKkWzm8BxaJj5HGKI72PnMH9jYyIFz+GH7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.min.js" integrity="sha512-IHlY3fpB/L7cL/IWtYdYQRstsU4z9MDeCX/9hDQN349vZYxI5YjbuwyTO8YnVbssyAEf5DzjDxvYV40SRd8gWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+
+{{-- <link href=”https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css” rel=”stylesheet”>
+<script src=”https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js”> </script> --}}
+
+{{-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
+    <!-- Include Moment.js CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <!-- Include Bootstrap DateTimePicker CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
 <div class="section-body">
     <div class="row">
     <div class="col-12">
@@ -33,6 +51,30 @@
                 <form action="{{url('/request-pinjam')}}" method="post">
                     @csrf
                     <div class="form-group row">
+                        <label for="zoom_id" class="col-sm-2 col-form-label">Nama Akun yang Dipinjam</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="zoom_id" id="zoom_id">
+                                <option value="">--Pilih Akun--</option>
+                                @foreach ($akunzoom as $item)
+                                    <option value="
+                                    @if ( $item->status_peminjaman == 1)
+                                        {{ $item->id_zoom}}
+                                    @endif
+                                    @if ( $item->status_peminjaman == 0)
+                                        
+                                    @endif
+                                    ">
+                                        @if ( $item->status_peminjaman == 1)
+                                            {{ $item->nama_akun}}
+                                        @else
+
+                                        @endif
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    {{-- <div class="form-group row">
                         <label for="zoom_id" class="col-sm-2 col-form-label">Nama Akun</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="zoom_id" id="zoom_id">
@@ -41,8 +83,61 @@
                                     <option value="{{ $item->id_zoom}}">{{$item->nama_akun}}</option>
                                 @endforeach
                             </select>
+                        <div class="form-group row ">
+                                <input type="text" class="form-control" name="zoom_id" id="zoom_id">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary" data-toggle="modal" data-target=".modal-item">
+                                    <i class="fa fa-search"></i>
+                                </button>
+
+                                <div class="modal fade modal-item" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Pilih akun yang tersedia</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body table-responsive">
+                                                <table class="table table-bordered table striped" id="table1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">Nama Akun</th>
+                                                            <th class="text-center">Kapasitas</th>
+                                                            <th class="text-center">Status</th>
+                                                            <th class="text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            @foreach ($akunzoom as $item)
+                                                            <tr>
+                                                                <td class="text-center">{{$item->nama_akun}}</td>
+                                                                <td class="text-center">{{$item->kapasitas}}</td>
+                                                                <td class="text-center">{{($item->status_peminjaman == 1) ? 'Selesai' : 'Dipinjam'}}</td>
+                                                                <td class="text-center">
+                                                                    <button class="btn btn-success btn-sm" id="select"
+                                                                    data-id="{{$item->id_zoom}}"
+                                                                    >
+                                                                        <i class="">pilih</i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label for="nama_kegiatan" class="col-sm-2 col-form-label">Kegiatan</label>
                         <div class="col-sm-10">
@@ -58,13 +153,23 @@
                     <div class="form-group row">
                         <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="tanggal" required>
+                            <input type="text" class="form-control" name="tanggal" id="tanggal" required>
+                            <script type="text/javascript">
+                                $('#tanggal').datetimepicker({
+                                    format: 'YYYY-MM-DD'
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="jam" class="col-sm-2 col-form-label">Jam</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="jam" required>
+                            <input type="text" class="form-control" name="jam" id="jam" required>
+                            <script type="text/javascript">
+                                $('#jam').datetimepicker({
+                                    format: 'HH:mm'
+                                });
+                            </script>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -84,6 +189,15 @@
 
 </div>
 
-
+{{-- <script>
+    $(document).ready(function() {
+        $(document).on('click', '#select', function(){
+            var id_zoom = $(this).data('id_zoom');
+            $('#zoom_id').val(id_zoom);
+        })
+    })
+</script> --}}
 
 @endsection
+
+

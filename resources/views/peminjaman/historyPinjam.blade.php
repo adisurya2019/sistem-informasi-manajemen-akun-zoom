@@ -61,7 +61,7 @@
                             <td class="text-center">{{$item->durasi}}</td>
                             <td class="text-center">
                                 @if (auth()->User()->level=="Admin")
-                                    @if ($item->status_aksi == '1')
+                                    {{-- @if ($item->status_aksi == '1')
                                         <a href="{{url('request-pinjam/history/'.$item->id_peminjaman)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-history "></i>
                                         </a>
@@ -70,7 +70,10 @@
                                         <a href="{{url('pengembalian/edit/'.$item->id_peminjaman)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-check-double "></i>
                                         </a>
-                                    @endif
+                                    @endif --}}
+                                    <a href="{{url('request-pinjam/history/'.$item->id_peminjaman)}}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-history "></i>
+                                    </a>
                                 @endif
                             </td>
                         </tr>

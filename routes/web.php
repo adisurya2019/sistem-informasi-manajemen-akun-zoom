@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AkunZoomController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\LoginController;
@@ -40,6 +41,9 @@ Route::group(['middleware'=> ['auth', 'ceklevel:Admin']], function (){
     //melihat history peminjaman dan restore data
     Route::get('/request-pinjam/history', [RequestPinjamController::class, 'history']);
     Route::get('/request-pinjam/history/{id_peminjaman?}', [RequestPinjamController::class, 'restore']);
+
+    //email
+    Route::get('/email', [EmailController::class, 'kirim']);
 });
 
 // ROUTE UNTUK MAHASISWA

@@ -8,6 +8,8 @@ use App\Models\AkunZoomModel;
 use App\Http\Controllers\Controller;
 use App\Models\StatusAksiModel;
 use phpDocumentor\Reflection\PseudoTypes\False_;
+use App\Mail\Email;
+use Illuminate\Support\Facades\Mail;
 
 class RequestPinjamController extends Controller
 {
@@ -116,6 +118,7 @@ class RequestPinjamController extends Controller
         $akunzoom->status_peminjaman -= $request->status_aksi;
         $akunzoom->save();
         $data->save();
+        Mail::to('kuroneko1181@gmail.com')->send(new Email());
         
         return redirect('/request-pinjam')->with('status', 'Request Berhasil Diperbarui!');
     }
@@ -186,16 +189,9 @@ class RequestPinjamController extends Controller
 
     public function pengembalian_update(Request $request, $id_peminjaman){
         $data = RequestPinjamModel::where('id_peminjaman', $id_peminjaman)->first();
-        // $data = RequestPinjamModel::find($id_peminjaman);
         $data ->zoom_id= $request->zoom_id;
-        // $data ->nama_kegiatan = $request->nama_kegiatan;
-        // $data ->deskripsi = $request->deskripsi;
-        // $data ->tanggal = $request->tanggal;
-        // $data ->jam = $request->jam;
-        // $data ->durasi = $request->durasi;
-        // $data ->status_aksi = $request->status_aksi;
-
         $status_sekarang = $data->status_aksi;
+
         if($status_sekarang == 1){
             RequestPinjamModel::where('id_peminjaman', $id_peminjaman)->update([
                 'status_aksi' => 2

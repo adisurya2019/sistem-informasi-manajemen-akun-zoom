@@ -20,62 +20,47 @@
 @endif
 {{-- <h1>Ini Halaman Dashboard</h1> --}}
 <div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-primary">
-                <i class="far fa-user"></i>
+                <i class="fas fa-video"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
                     <h4>Jumlah Akun Zoom</h4>
                 </div>
                 <div class="card-body">
-                    10
+                    {{$CountZoom}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-danger">
-                <i class="far fa-newspaper"></i>
+                <i class="fas fa-clipboard-list"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Peminjaman diapproved</h4>
+                    <h4>Total Request</h4>
                 </div>
                 <div class="card-body">
-                    42
+                    {{$CountRequest}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-warning">
-                <i class="far fa-file"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Peminjaman belum diapproved</h4>
-                </div>
-                <div class="card-body">
-                    1
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-4 col-md-4 col-sm-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-success">
-                <i class="fas fa-circle"></i>
+                <i class="fas fa-users"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
                     <h4>Jumlah user</h4>
                 </div>
                 <div class="card-body">
-                    1
+                    {{$CountUser}}
                 </div>
             </div>
         </div>
@@ -84,7 +69,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4>Akun Zoom masih yang tersedia</h4>
+                <h4>LIST AKUN ZOOM</h4>
                 <div class="card-header-action">
                     <form>
                         <div class="input-group">
@@ -110,18 +95,29 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($data as $item)
                         <tr>
                             <td class="text-center">
                                 <div class="sort-handler">
                                     <i class="fas fa-video"></i>
                                 </div>
                             </td>
-                            <td>Create a mobile app</td>
-                            <td>100</td>
-                            <td>
-                                <div class="badge badge-success">Completed</div>
+                            <td >{{$item->nama_akun}}</td>
+                            <td >{{$item->kapasitas}}</td>
+                            <td >
+                                <div class="
+                                    @if ($item->status_peminjaman == "1")
+                                        badge badge-success btn-sm
+                                    @else
+                                        badge badge-danger btn-sm
+                                    @endif
+                                ">
+                                {{($item->status_peminjaman == 1) ? 'Selesai' : 'Dipinjam'}}
+                                </div>
                             </td>
+                            
                         </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

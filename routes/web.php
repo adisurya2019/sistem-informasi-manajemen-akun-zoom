@@ -58,6 +58,7 @@ Route::group(['middleware'=> ['auth', 'ceklevel:User']], function (){
 Route::group(['middleware'=>['auth', 'ceklevel:Admin,User']], function (){
     //melihat dashboard
     Route::get('/dashboard', [LevelController::class, 'dashboard']);
+    // Route::get('/dashboard', [LevelController::class, 'count_akunzoom']);
 
     //melihat list request yang telah dibuat
     Route::get('/request-pinjam', [RequestPinjamController::class, 'index']);

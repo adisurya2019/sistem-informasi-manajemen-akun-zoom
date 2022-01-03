@@ -45,7 +45,17 @@
                             <td class="text-center">{{$loop->iteration}}</td>
                             <td class="text-center">{{$item->nama_akun}}</td>
                             <td class="text-center">{{$item->kapasitas}}</td>
-                            <td class="text-center">{{($item->status_peminjaman == 1) ? 'Selesai' : 'Dipinjam'}}</td>
+                            <td class="text-center">
+                                <div class="
+                                    @if ($item->status_peminjaman == "1")
+                                        badge badge-success btn-sm
+                                    @else
+                                        badge badge-danger btn-sm
+                                    @endif
+                                ">
+                                {{($item->status_peminjaman == 1) ? 'Selesai' : 'Dipinjam'}}
+                                </div>
+                            </td>
                             <td class="text-center">
                                         <a href="{{url('akun-zoom/edit/'.$item->id_zoom)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-pencil-alt "></i>

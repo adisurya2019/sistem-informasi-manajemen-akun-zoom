@@ -57,8 +57,7 @@ Route::group(['middleware'=> ['auth', 'ceklevel:User']], function (){
 //ROUTE ADMIN DAN MAHASISWA
 Route::group(['middleware'=>['auth', 'ceklevel:Admin,User']], function (){
     //melihat dashboard
-    Route::get('/dashboard', [LevelController::class, 'dashboard']);
-    // Route::get('/dashboard', [LevelController::class, 'count_akunzoom']);
+    Route::get('/', [LevelController::class, 'dashboard']);
 
     //melihat list request yang telah dibuat
     Route::get('/request-pinjam', [RequestPinjamController::class, 'index']);

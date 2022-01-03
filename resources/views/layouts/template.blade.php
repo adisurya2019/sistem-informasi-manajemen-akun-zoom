@@ -89,7 +89,7 @@
                 <li class="menu-header">Dashboard</li>
                 @if (auth()->User()->level=="Admin")
                     <li class="nav-item dropdown">
-                        <a href="/dashboard" class="nav-link"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
+                        <a href="/" class="nav-link"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
                     </li>
                     <li class="menu-header">MANAJEMEN AKUN ZOOM</li>
                     <li class="nav-item dropdown">

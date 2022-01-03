@@ -38,6 +38,6 @@ class RequestPinjamTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('peminjaman_table');
     }
 }

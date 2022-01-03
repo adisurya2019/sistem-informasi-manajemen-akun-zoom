@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title> @yield('title')- Manajemen Akun Zoom</title>
+    <title> @yield('title') - Manajemen Akun Zoom</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -86,11 +86,12 @@
                 <a href="index.html">AK</a>
             </div>
             <ul class="sidebar-menu">
-                <li class="menu-header">Menu</li>
+                <li class="menu-header">Dashboard</li>
                 @if (auth()->User()->level=="Admin")
                     <li class="nav-item dropdown">
                         <a href="/dashboard" class="nav-link"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
                     </li>
+                    <li class="menu-header">MANAJEMEN AKUN ZOOM</li>
                     <li class="nav-item dropdown">
                         <a href="/akun-zoom" class="nav-link has-dropdown "><i class="fas fa-video"></i><span>Akun Zoom</span></a>
                         <ul class="dropdown-menu">
@@ -116,6 +117,7 @@
                     <li class="nav-item dropdown">
                         <a href="/dashboard" class="nav-link"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
                     </li>
+                    <li class="menu-header">PEMINJAMAN AKUN</li>
                     <li class="nav-item dropdown">
                         <a href="jadwal" class="nav-link has-dropdown"><i class="fas fa-exchange-alt"></i><span>Peminjaman</span></a>
                         <ul class="dropdown-menu">

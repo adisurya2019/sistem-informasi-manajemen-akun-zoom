@@ -58,10 +58,10 @@
                             <td class=" text-center">
                                 <div class=" text-center 
                                     @if ($item->status_aksi == "1")
-                                        btn btn-success btn-sm
+                                        badge badge-success btn-sm
                                     @endif
                                     @if ($item->status_aksi == "0")
-                                        btn btn-danger btn-sm
+                                        badge badge-danger btn-sm
                                     @endif">
                                         @if ($item->status_aksi == "1")
                                             Approved
@@ -77,13 +77,13 @@
                             <td class="text-center">
                                 <div class="text-center
                                 @if ($item->status_aksi == "1")
-                                    btn btn-success btn-sm
+                                    badge badge-warning btn-sm
                                 @endif
                                 @if ($item->status_aksi == "2")
-                                        btn btn-success btn-sm
+                                    badge badge-success btn-sm
                                     @endif
-                                @if ($item->status_aksi == "0")
-                                    btn btn-danger btn-sm
+                                @if ($item->status_aksi == null)
+                                    badge badge-danger btn-sm
                                 @endif">
                                     @if ($item->status_aksi == "1")
                                         sedang digunakan
@@ -101,9 +101,19 @@
                             {{-- <td class="text-center">{{$item->status_aksi}}</td> --}}
                             <td class="text-center">
                                 @if (auth()->User()->level=="Admin")
-                                    <a href="{{url('request-pinjam/edit/'.$item->id_peminjaman)}}" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-pencil-alt "></i>
-                                    </a>
+                                    @if ($item->status_aksi == "2")
+                                        <form action="{{'request-pinjam/finish/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Akun zoom akan dikembalikan, apakah anda yakin?')">
+                                            @method('delete')
+                                                @csrf
+                                                <button href="" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            </form>
+                                    @else
+                                        <a href="{{url('request-pinjam/edit/'.$item->id_peminjaman)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-pencil-alt "></i>
+                                        </a>
+                                    @endif
                                 @endif
                                     @if (auth()->User()->level=="User")
                                         @if ($item->status_aksi == "1")
@@ -120,15 +130,6 @@
                                                 </button>
                                             </form>
                                         @endif
-                                        {{-- @if ($item->status_aksi == "0")
-                                            <form action="{{'request-pinjam/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Data akan dihapus, apakah anda yakin? ')">
-                                                @method('delete')
-                                                @csrf
-                                                <button href="" class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        @endif --}}
                                         @if ($item->status_aksi == null)
                                             <form action="{{'request-pinjam/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Data akan dihapus, apakah anda yakin? ')">
                                                 @method('delete')

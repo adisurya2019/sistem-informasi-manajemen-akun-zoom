@@ -51,7 +51,7 @@ Route::group(['middleware'=> ['auth', 'ceklevel:User']], function (){
     //mengembalikan akun zoom
     Route::get('/pengembalian/edit/{id_peminjaman}', [RequestPinjamController::class, 'pengembalian']);
     Route::patch('/pengembalian/{id_peminjaman}', [RequestPinjamController::class, 'pengembalian_update']);
-    Route::delete('/request-pinjam/finish/{id_peminjaman}', [RequestPinjamController::class, 'soft_destroy']);
+    
 });
 
 //ROUTE ADMIN DAN MAHASISWA
@@ -68,6 +68,9 @@ Route::group(['middleware'=>['auth', 'ceklevel:Admin,User']], function (){
 
     //menghapus request yang belum di approved
     Route::delete('/request-pinjam/{id_peminjaman}', [RequestPinjamController::class, 'destroy']);
+
+    //menghapus request yang sudah di approved
+    Route::delete('/request-pinjam/finish/{id_peminjaman}', [RequestPinjamController::class, 'soft_destroy']);
 });
 
 //LOGIN

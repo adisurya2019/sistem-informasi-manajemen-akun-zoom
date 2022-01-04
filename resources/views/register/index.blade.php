@@ -28,9 +28,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="level">Level</label>
-                                <input id="level" type="text" class="form-control @error('level')
+                                <select id="level" type="text" class="form-control @error('level')
                                     is-invalid
-                                    @enderror" name="level" autofocus value="{{old('level')}}" >
+                                @enderror" name="level" autofocus >
+                                    <option value="">--Pilih Level--</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="User">User</option>
+                                </select>
                                 @error('level')
                                     <div class="invalid-feedback">
                                         {{$message}} 

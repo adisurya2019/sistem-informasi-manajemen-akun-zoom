@@ -134,7 +134,7 @@ class RequestPinjamController extends Controller
         $data = RequestPinjamModel::find($id_peminjaman);
         $data ->forceDelete();
 
-        return redirect('/request-pinjam')->with('status', 'Data Berhasil Dihapus!');
+        return redirect('/request-pinjam')->with('status', 'Request Berhasil dihapus!!');
     }
     
     public function history()
@@ -158,7 +158,7 @@ class RequestPinjamController extends Controller
             ->restore();
         }
 
-        return redirect('/request-pinjam')->with('status', 'Data Berhasil Direstore!');
+        return redirect('/request-pinjam')->with('status', 'Request Berhasil direstore!');
     }
     
     public function soft_destroy($id_peminjaman)
@@ -166,7 +166,7 @@ class RequestPinjamController extends Controller
         $data = RequestPinjamModel::find($id_peminjaman);
         $data ->delete();
 
-        return redirect('/request-pinjam')->with('status', 'Akun zoom sudah dikembalikan!');
+        return redirect('/request-pinjam')->with('status', 'Request Berhasil dihapus!');
     }
 
     public function pengembalian($id_peminjaman)

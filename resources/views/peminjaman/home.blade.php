@@ -105,8 +105,8 @@
                                         <form action="{{'request-pinjam/finish/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Akun zoom akan dikembalikan, apakah anda yakin?')">
                                             @method('delete')
                                                 @csrf
-                                                <button href="" class="btn btn-primary btn-sm">
-                                                    <i class="fa fa-check"></i>
+                                                <button href="" class="btn btn-success btn-sm">
+                                                    <i class="fa fa-trash-alt"></i>
                                                 </button>
                                             </form>
                                     @else
@@ -122,16 +122,16 @@
                                             </a>
                                         @endif
                                         @if ($item->status_aksi == "2")
-                                        <form action="{{'request-pinjam/finish/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Akun zoom akan dikembalikan, apakah anda yakin?')">
+                                        <form action="{{'request-pinjam/finish/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Request akan dihapus, apakah anda yakin?')">
                                             @method('delete')
                                                 @csrf
-                                                <button href="" class="btn btn-primary btn-sm">
-                                                    <i class="fa fa-check"></i>
+                                                <button href="" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash-alt"></i>
                                                 </button>
                                             </form>
                                         @endif
                                         @if ($item->status_aksi == null)
-                                            <form action="{{'request-pinjam/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Data akan dihapus, apakah anda yakin? ')">
+                                            <form action="{{'request-pinjam/'.$item->id_peminjaman}}" class="d-inline" method="POST" onsubmit="return confirm('Request peminjaman belum di Approve, apakah anda yakin ingin menghapus permintaan? ')">
                                                 @method('delete')
                                                 @csrf
                                                 <button href="" class="btn btn-danger btn-sm">

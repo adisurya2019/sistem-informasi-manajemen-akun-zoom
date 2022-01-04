@@ -18,6 +18,8 @@
     </div>
 @endif
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <!-- Include Moment.js CDN -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
@@ -39,7 +41,7 @@
             <div class="table-responsive">
                 <form action="{{url('/request-pinjam')}}" method="post">
                     @csrf
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="zoom_id" class="col-sm-2 col-form-label">Nama Akun yang Dipinjam</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="zoom_id" id="zoom_id">
@@ -62,25 +64,28 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    {{-- <div class="form-group row">
-                        <label for="zoom_id" class="col-sm-2 col-form-label">Nama Akun</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="zoom_id" id="zoom_id">
-                                <option value="">--Pilih Akun--</option>
-                                @foreach ($akunzoom as $item)
-                                    <option value="{{ $item->id_zoom}}">{{$item->nama_akun}}</option>
-                                @endforeach
-                            </select>
+                    </div> --}}
                         <div class="form-group row ">
-                                <input type="text" class="form-control" name="zoom_id" id="zoom_id">
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-primary" data-toggle="modal" data-target=".modal-item">
-                                    <i class="fa fa-search"></i>
-                                </button>
-
-                                <div class="modal fade modal-item" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="col-sm-2">
+                                    <label for="zoom_id" class="col-form-label">Nama Akun yang Dipinjam</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control list-group-item disabled text-dark" name="kosong" id="nama_akun">
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <button type="menu" class="btn btn-primary" data-toggle="modal" data-target="#modal-item">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="hidden" class="form-control list-group-item disabled text-dark" name="zoom_id" id="zoom_id">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- modal --}}
+                                <div class="modal fade"  id="modal-item">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -105,13 +110,27 @@
                                                             <tr>
                                                                 <td class="text-center">{{$item->nama_akun}}</td>
                                                                 <td class="text-center">{{$item->kapasitas}}</td>
-                                                                <td class="text-center">{{($item->status_peminjaman == 1) ? 'Selesai' : 'Dipinjam'}}</td>
                                                                 <td class="text-center">
-                                                                    <button class="btn btn-success btn-sm" id="select"
-                                                                    data-id="{{$item->id_zoom}}"
-                                                                    >
-                                                                        <i class="">pilih</i>
-                                                                    </button>
+                                                                    <div class="
+                                                                        @if ($item->status_peminjaman == "1")
+                                                                            badge badge-success btn-sm
+                                                                        @else
+                                                                            badge badge-danger btn-sm
+                                                                        @endif
+                                                                    ">
+                                                                        {{($item->status_peminjaman == 1) ? 'Selesai' : 'Dipinjam'}}</td>
+                                                                    </div>
+                                                                <td class="text-center">
+                                                                    @if ($item->status_peminjaman == 1)
+                                                                        <button class="btn btn-success btn-sm" id="select" data-dismiss="modal" aria-label="Close"
+                                                                            data-id_zoom="{{$item->id_zoom}}"
+                                                                            data-nama_akun="{{$item->nama_akun}}">
+                                                                        <i class="fa fa-check"> pilih</i>
+                                                                        </button>
+                                                                    @else
+                                                                        -
+                                                                    @endif
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -122,11 +141,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                                
-                        </div>
-                    </div> --}}
+                                {{-- modal --}}
+                    </div>
                     <div class="form-group row">
                         <label for="nama_kegiatan" class="col-sm-2 col-form-label">Kegiatan</label>
                         <div class="col-sm-10">
@@ -178,14 +194,19 @@
 
 </div>
 
-{{-- <script>
+
+<script>
     $(document).ready(function() {
         $(document).on('click', '#select', function(){
-            var id_zoom = $(this).data('id_zoom');
-            $('#zoom_id').val(id_zoom);
+            var zoom_id = $(this).data('id_zoom');
+            var nama_akun = $(this).data('nama_akun');
+            $('#zoom_id').val(zoom_id);
+            $('#nama_akun').val(nama_akun);
+            $('#modal-item').modal('hide');
+
         })
     })
-</script> --}}
+</script>
 
 @endsection
 

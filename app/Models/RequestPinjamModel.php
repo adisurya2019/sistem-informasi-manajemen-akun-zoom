@@ -14,7 +14,7 @@ class RequestPinjamModel extends Model
     protected $table = 'peminjaman_table';
     protected $primaryKey = 'id_peminjaman';
     // protected $foreignKey = '';
-    protected $fillable = ['zoom_id','nama_kegiatan', 'deskripsi', 'tanggal', 'jam', 'durasi', 'status_aksi'];
+    protected $fillable = ['zoom_id','nama_kegiatan', 'deskripsi', 'tanggal', 'jam', 'durasi', 'status_aksi', 'email_user'];
 
     public function akunzoom(){
         return $this->belongsTo(AkunZoomModel::class, 'zoom_id', 'id_zoom');

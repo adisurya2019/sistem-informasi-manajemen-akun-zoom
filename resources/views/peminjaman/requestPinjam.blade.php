@@ -41,30 +41,6 @@
             <div class="table-responsive">
                 <form action="{{url('/request-pinjam')}}" method="post">
                     @csrf
-                    {{-- <div class="form-group row">
-                        <label for="zoom_id" class="col-sm-2 col-form-label">Nama Akun yang Dipinjam</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="zoom_id" id="zoom_id">
-                                <option value="">--Pilih Akun--</option>
-                                @foreach ($akunzoom as $item)
-                                    <option value="
-                                    @if ( $item->status_peminjaman == 1)
-                                        {{ $item->id_zoom}}
-                                    @endif
-                                    @if ( $item->status_peminjaman == 0)
-                                        
-                                    @endif
-                                    ">
-                                        @if ( $item->status_peminjaman == 1)
-                                            {{ $item->nama_akun}}
-                                        @else
-
-                                        @endif
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div> --}}
                         <div class="form-group row ">
                                 <div class="col-sm-2">
                                     <label for="zoom_id" class="col-form-label">Nama Akun yang Dipinjam</label>
@@ -181,6 +157,12 @@
                         <label for="durasi" class="col-sm-2 col-form-label">Durasi</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="durasi" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="durasi" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control list-group-item disabled" name="email_user" required value="{{ auth()->user()->email }}">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

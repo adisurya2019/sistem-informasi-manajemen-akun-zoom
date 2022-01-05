@@ -71,7 +71,8 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.', 
             'tanggal' => '2021-12-31', 
             'jam' => '11:00', 
-            'durasi' => '2 Jam'
+            'durasi' => '2 Jam',
+            'email_user' => 'marjaya@undiksha.ac.id'
         ]);
     }
 }

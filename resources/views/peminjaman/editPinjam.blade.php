@@ -75,6 +75,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="durasi" class="col-sm-2 col-form-label">Send Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control list-group-item disabled" name="email_user" required value="{{$editData->email_user}}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="status_aksi" class="col-sm-2 col-form-label">Update Status</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="status_aksi" id="status_aksi">

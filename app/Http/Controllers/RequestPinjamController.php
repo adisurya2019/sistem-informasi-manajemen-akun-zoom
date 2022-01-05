@@ -57,7 +57,7 @@ class RequestPinjamController extends Controller
         $data ->tanggal = $request->tanggal;
         $data ->jam = $request->jam;
         $data ->durasi = $request->durasi;
-        // $data ->status_aksi = $request->status_field;
+        $data ->email_user = $request->email_user;
 
         $data->save();
 
@@ -113,12 +113,21 @@ class RequestPinjamController extends Controller
         $data ->jam = $request->jam;
         $data ->durasi = $request->durasi;
         $data ->status_aksi = $request->status_aksi;
+        $data ->email_user = $request->email_user;
         
+        $email = $data ->email_user;
+
         $akunzoom = AkunZoomModel::find($request->zoom_id);
         $akunzoom->status_peminjaman -= $request->status_aksi;
         $akunzoom->save();
         $data->save();
-        Mail::to('kuroneko1181@gmail.com')->send(new Email());
+
+        if($akunzoom->status_peminjaman == 0){
+            Mail::to($email)->send(new Email());
+        }
+        else {
+            
+        }
         
         return redirect('/request-pinjam')->with('status', 'Request Berhasil Diperbarui!');
     }
